@@ -28,44 +28,39 @@ public class SwitchStates : MonoBehaviour
         }
         if (FindObjectOfType<DayAndNightControl>().currentWorkerDaystate != DayAndNightControl.DaystateOut.Day &&
             !FindObjectOfType<Nugget>().CanPickUp && 
-            FindObjectOfType<Worker>().IsThirsty && 
+            FindObjectOfType<BoolChecks>().Dehydrated &&
+            FindObjectOfType<BoolChecks>().Semihydrated &&
+            !FindObjectOfType<BoolChecks>().Hydrated &&
             FindObjectOfType<Worker>().PocketsFull)
         {
-           // Debug.Log("VisitSaloonState");
-
             worker.newTargetPos = GameObject.FindGameObjectWithTag("saloonTargetpos").transform.position;
             worker.currentWorkerState = Worker.WorkerState.VisitSaloon;
         }
         if (FindObjectOfType<DayAndNightControl>().currentWorkerDaystate == DayAndNightControl.DaystateOut.Evening ||
             FindObjectOfType<DayAndNightControl>().currentWorkerDaystate == DayAndNightControl.DaystateOut.Night && 
             !FindObjectOfType<Nugget>().CanPickUp  && 
-            FindObjectOfType<Worker>().PocketsFull && 
-            !FindObjectOfType<Worker>().IsThirsty)
+            FindObjectOfType<Worker>().PocketsFull &&
+            FindObjectOfType<BoolChecks>().Hydrated &&
+            FindObjectOfType<BoolChecks>().Semihydrated &&
+            !FindObjectOfType<BoolChecks>().Dehydrated)
         {
-          //  Debug.Log("VisitBankState");
-
             worker.newTargetPos = GameObject.FindGameObjectWithTag("bankTargetPos").transform.position;
             worker.currentWorkerState = Worker.WorkerState.VisitBank;           
         }
         if (FindObjectOfType<DayAndNightControl>().currentWorkerDaystate != DayAndNightControl.DaystateOut.Day &&
             !FindObjectOfType<Worker>().PocketsFull)
         {
-           // Debug.Log("GoHomeState");
-
             worker.newTargetPos = GameObject.FindGameObjectWithTag("houseTargetPos").transform.position;
             worker.currentWorkerState = Worker.WorkerState.GoHome;           
         }
         if(FindObjectOfType<Nugget>().IsOnGround && FindObjectOfType<Nugget>().CanPickUp)
         {
-           // Debug.Log("pickUpNuggetState");
             worker.newTargetPos = GameObject.FindGameObjectWithTag("nuggetTargetPos").transform.position;
             worker.currentWorkerState = Worker.WorkerState.PickUpGold;
         }
         if (FindObjectOfType<Worker>().IsFatigue)
-        {
-           // Debug.Log("restState");
+        {           
             worker.currentWorkerState = Worker.WorkerState.Rest;
-
         }        
     }
 

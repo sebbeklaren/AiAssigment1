@@ -22,7 +22,7 @@ public class Worker : WorkerEntity
     {
         Fatigue = 100;
         Health = 100;
-        Thirst = 10;
+        Thirst = 100;
         BankAccount = 0;
         GoldCounter = 0;
     }   

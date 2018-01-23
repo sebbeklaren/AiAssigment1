@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WorkerStates : MonoBehaviour {
-
-   
-   // public Transform targetPos;   
+       
     public Vector3 movePos, currentPos;
     private int moveSpeed = 3;
     private int digCount;
@@ -24,9 +22,8 @@ public class WorkerStates : MonoBehaviour {
         st = 0.0f;
         DigCount = 0;
         RestCount = 0;
-        FindObjectOfType<Worker>().IsThirsty = false;
+       // FindObjectOfType<Worker>().IsThirsty = false;
         FindObjectOfType<Worker>().IsFatigue = false;
-
     }
 
     public void MoveTo(GameObject gObject, Vector3 targetPos)
@@ -44,17 +41,13 @@ public class WorkerStates : MonoBehaviour {
     }
     public void PickUpGold(GameObject gObject, Vector3 targetPos)
     {
-      //  Debug.Log(FindObjectOfType<Nugget>().CanPickUp);
         if (Vector3.Distance(FindObjectOfType<Nugget>().transform.position, gObject.transform.position) <= 1.0f && FindObjectOfType<Nugget>().CanPickUp == true)
         {
-          //  Debug.Log("Distance0.5");
-            
             FindObjectOfType<Nugget>().IsVisible = false;          
             FindObjectOfType<Nugget>().transform.position = new Vector3(-21.68f, 4.04f, 22.68f);
             FindObjectOfType<Nugget>().CanPickUp = false;
             FindObjectOfType<Nugget>().IsOnGround = false;
             FindObjectOfType<Worker>().GoldCounter++;
-           // Debug.Log(FindObjectOfType<Worker>().GoldCounter);
             DigCount = 0;
         }        
     }
@@ -69,12 +62,11 @@ public class WorkerStates : MonoBehaviour {
             {
                 if (FindObjectOfType<Worker>().Thirst != 100)
                 {
-
                     FindObjectOfType<Worker>().Thirst++;
                 }
                 else if (FindObjectOfType<Worker>().Thirst == 100)
                 {
-                    FindObjectOfType<Worker>().IsThirsty = false;
+                   // FindObjectOfType<Worker>().IsThirsty = false;
                     FindObjectOfType<Worker>().GoldCounter = 0;
                 }
                 st = 0.0f;
@@ -86,21 +78,16 @@ public class WorkerStates : MonoBehaviour {
 
     public void GoToBank(GameObject gObject, Vector3 targetPos)
     {
-       
-       // Debug.Log("bankMove");
         if (Vector3.Distance(gObject.transform.position, GameObject.FindGameObjectWithTag("bankTargetPos").transform.position) < 0.5)
         {
             FindObjectOfType<Worker>().BankAccount += FindObjectOfType<Worker>().GoldCounter;
             FindObjectOfType<Worker>().GoldCounter = 0;
             DigCount = 0;
         }
-
     }
 
     public void GoHome(GameObject gObject, Vector3 targetPos)
     {
-        
-       // Debug.Log("homeMove");
         DigCount = 0;
     }
 
@@ -119,7 +106,6 @@ public class WorkerStates : MonoBehaviour {
             }
             ft = 0.0f;
         }
-      //  Debug.Log("rest");
     }
 
     public void MineForGold(GameObject gObject, Vector3 targetPos)
@@ -141,20 +127,13 @@ public class WorkerStates : MonoBehaviour {
                 }                
                 dt = 0.0f;
                 DigCount++;
-                FindObjectOfType<Worker>().Fatigue--;
+                FindObjectOfType<Worker>().Fatigue = FindObjectOfType<Worker>().Fatigue - 2;
                 FindObjectOfType<Worker>().Thirst--;
-               // Debug.Log(FindObjectOfType<Worker>().Fatigue);
                 if (DigCount == 5)
                 {                   
-                    FindObjectOfType<Nugget>().IsOnGround = true;
-                   
-                }
-                //else if()
-                //{
-                //    FindObjectOfType<Nugget>().IsOnGround = false;
-                //}
+                    FindObjectOfType<Nugget>().IsOnGround = true;                   
+                }              
             }
-            //Debug.Log(digCount);
         }      
     }
     void OnGUI()

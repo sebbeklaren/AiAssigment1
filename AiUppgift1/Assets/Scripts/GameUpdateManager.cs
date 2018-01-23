@@ -14,7 +14,8 @@ public class GameUpdateManager : MonoBehaviour {
         FindObjectOfType<Worker>().WorkerUpdate();
         FindObjectOfType<Nugget>().ReleaseNugget();
         FindObjectOfType<BoolChecks>().CheckFatigue();
-        FindObjectOfType<BoolChecks>().CheckThirst();
+       // FindObjectOfType<BoolChecks>().CheckThirst();
         FindObjectOfType<BoolChecks>().CheckPockets();
+        FindObjectOfType<BoolChecks>().ThirstState();
     }
 }
